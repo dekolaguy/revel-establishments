@@ -1,7 +1,7 @@
 import src as app
 
 
-def call_and_save(request):
+def save_establishments(request):
     data = request.get_json()
     state = data.get("state")
     secrets = data.get("secrets")

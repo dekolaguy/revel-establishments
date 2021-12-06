@@ -1,4 +1,3 @@
-import datetime
 from typing import Union
 
 
@@ -30,28 +29,6 @@ def extract_keys(keys: list[str], data: Union[dict, list[dict]]) -> Union[dict, 
         return filtered
     else:
         return filter_dict(keys, data)
-
-
-def calculate_time_range(state: dict, secret: dict) -> dict:
-    calculation_delta = datetime.timedelta(days=6)
-    date_format = "%Y-%m-%d"
-
-    if state.get("last_date"):
-        last_date = datetime.date.fromisoformat(state.get("last_date"))
-        next_7_days = last_date + calculation_delta
-        return {
-            "start_date": state.get("last_date"),
-            "end_date": next_7_days.strftime(date_format)
-        }
-    elif secret.get("initial_date"):
-        initial_date = datetime.date.fromisoformat(secret.get("initial_date"))
-        last_7_days = initial_date - calculation_delta
-        return {
-            "start_date": last_7_days.strftime(date_format),
-            "end_date": secret.get("initial_date")
-        }
-    else:
-        raise KeyError("Initial date is not passed")
 
 
 def transform_orders(establishments: list[dict]):

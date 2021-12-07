@@ -14,12 +14,12 @@ class APIHandler:
         self.baseURL = baseURL
         self.order_item: Optional[dict] = None
         self.headers = {
-            'Accept': 'appliction/json',
+            'Accept': 'application/json',
             'API-AUTHENTICATION': config('apikey')
         }
 
     def request_for_establishments(self, url=None, last_id=None, use_param=True, batch_size=500):
-        """Make a request to get all Orders from Revel, with specified fields, or all
+        """Make a request to get all establishments from Revel, with specified fields, or all
         if no field is specified.
         """
         request_params = {
@@ -47,7 +47,7 @@ class APIHandler:
 
         if len(response_object) < batch_size and response_meta_info.get("next"):
             request_url = response_meta_info.get("next")
-            self.request_for_establishments(url=request_url, use_param=False)
+            return response_object + self.request_for_establishments(url=request_url, use_param=False, batch_size=batch_size - len(response_object))
 
         return response_object
 

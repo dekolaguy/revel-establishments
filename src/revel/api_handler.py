@@ -25,13 +25,12 @@ class APIHandler:
         request_params = {
             "format": "json",
             "limit": batch_size if batch_size < 100 else 100,
-            "expand": "order,product",
             "order_by": "id"
         }
         if last_id:
             request_params["id__gt"] = last_id
 
-        request_url = url or '/resources/OrderItem/'
+        request_url = url or '/enterprise/Establishment/'
 
         response_object = []
 
